@@ -1,0 +1,29 @@
+name: Gradle CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Rodar build (Gradle)
+        run: |
+          if [ -f "./gradlew" ]; then
+            ./gradlew build
+          else
+            echo "Simulando build Maven"
+            mvn clean package -DskipTests
+          fi
