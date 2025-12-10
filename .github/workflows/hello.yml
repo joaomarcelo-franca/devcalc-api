@@ -1,0 +1,12 @@
+name: Hello CI/CD
+
+on:
+  push:
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Exibe mensagem no log
+        run: echo "Hello CI/CD"
