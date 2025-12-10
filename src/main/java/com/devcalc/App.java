@@ -36,5 +36,9 @@ public class App {
                 ctx.status(400).result(exception.getMessage());
             }
         });
+
+        app.get("/health", ctx -> {
+            ctx.result("OK");
+        });
     }
 }
