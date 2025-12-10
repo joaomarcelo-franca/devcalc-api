@@ -1,0 +1,42 @@
+name: Deploy Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DEPLOY_ENV: staging  # pode ser alterado para dev ou prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Ativar logs de debug
+      - name: Ativar debug
+        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+
+      # Checkout do código
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Exemplo de uso de secret
+      - name: Configurar credenciais
+        run: echo "API_KEY configurado"
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+
+      # Passo de deploy
+      - name: Deploy
+        run: |
+          echo "Ambiente ativo: $DEPLOY_ENV"
+          if [ "$DEPLOY_ENV" = "dev" ]; then
+            echo "Deploy em desenvolvimento concluído"
+          elif [ "$DEPLOY_ENV" = "staging" ]; then
+            echo "Deploy em staging concluído"
+          elif [ "$DEPLOY_ENV" = "prod" ]; then
+            echo "Deploy em produção concluído"
+          else
+            echo "Ambiente desconhecido"
+          fi
